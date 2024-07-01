@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://o25h7bc0kx7l"]
+
+[ext_resource type="PackedScene" uid="uid://lf6k2kyibdyb" path="res://scenes/levels/level.tscn" id="1_eryst"]
+[ext_resource type="PackedScene" uid="uid://bp3eibq5evxl" path="res://scenes/levels/level_4.tscn" id="2_e355w"]
+[ext_resource type="PackedScene" uid="uid://dppshwhhwtf5v" path="res://scenes/objects/spikes.tscn" id="2_glfcn"]
+
+[node name="Level3" instance=ExtResource("1_eryst")]
+
+[node name="LoadingZone" parent="." index="1"]
+position = Vector2(296, -8)
+next_level = ExtResource("2_e355w")
+
+[node name="TileMap" parent="." index="2"]
+layer_0/tile_data = PackedInt32Array(65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, -65534, 0, 0, -131070, 0, 0, -196606, 0, 0, -262142, 0, 0, -327678, 0, 0, -393214, 0, 0, -458750, 0, 0, -524286, 0, 0, -589822, 0, 0, -655358, 0, 0, -720894, 0, 0, 65533, 0, 0, 65532, 0, 0, -720893, 0, 0, -720892, 0, 0, -720891, 0, 0, -720890, 0, 0, -720889, 0, 0, -720888, 0, 0, -720887, 0, 0, -655351, 0, 0, -589815, 0, 0, -524279, 0, 0, -458743, 0, 0, -393207, 0, 0, -327671, 0, 0, -262135, 0, 0, -196599, 0, 0, -131063, 0, 0, -65527, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, -65521, 0, 0, -131057, 0, 0, -589809, 0, 0, -655345, 65536, 0, -524273, 0, 0, -458737, 0, 0, -393201, 0, 0, -327665, 0, 0, -262129, 0, 0, -196593, 0, 0, -786417, 65536, 0, -851953, 65536, 0, -720881, 65536, 0)
+
+[node name="Spike" parent="Hazards" index="0" instance=ExtResource("2_glfcn")]
+position = Vector2(168, -8)
+
+[node name="Spike2" parent="Hazards" index="1" instance=ExtResource("2_glfcn")]
+position = Vector2(184, -8)
+
+[node name="Spike3" parent="Hazards" index="2" instance=ExtResource("2_glfcn")]
+position = Vector2(200, -8)
+
+[node name="Spike4" parent="Hazards" index="3" instance=ExtResource("2_glfcn")]
+position = Vector2(216, -8)
+
+[node name="Spike5" parent="Hazards" index="4" instance=ExtResource("2_glfcn")]
+position = Vector2(232, -8)

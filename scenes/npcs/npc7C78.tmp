@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=3 uid="uid://iae01ji2dgg7"]
+
+[ext_resource type="Texture2D" uid="uid://ceg67hyjbv0ii" path="res://assets/brackeys_platformer_assets/sprites/slime_purple.png" id="1_2vykl"]
+[ext_resource type="Script" path="res://scenes/npcs/Area2D.gd" id="1_adehs"]
+[ext_resource type="PackedScene" uid="uid://co7ue8pwplhv8" path="res://scenes/statemachine/state_machine.tscn" id="2_8iwfr"]
+[ext_resource type="Script" path="res://scenes/npcs/Alerted.gd" id="3_ar3p3"]
+[ext_resource type="Script" path="res://scenes/npcs/IdleState.gd" id="4_dgwse"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vh4q5"]
+radius = 49.0102
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wua0t"]
+atlas = ExtResource("1_2vykl")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6vp3"]
+atlas = ExtResource("1_2vykl")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s5cv5"]
+atlas = ExtResource("1_2vykl")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhx3i"]
+atlas = ExtResource("1_2vykl")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s4gy4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wua0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p6vp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s5cv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhx3i")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_axw1b"]
+radius = 7.0
+
+[node name="NPC" type="CharacterBody2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("1_adehs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_vh4q5")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_s4gy4")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.242366
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_axw1b")
+
+[node name="StateMachine" parent="." instance=ExtResource("2_8iwfr")]
+
+[node name="AlertedState" type="Node" parent="StateMachine" node_paths=PackedStringArray("alert_area")]
+script = ExtResource("3_ar3p3")
+alert_area = NodePath("../../Area2D")
+priority = null
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("4_dgwse")

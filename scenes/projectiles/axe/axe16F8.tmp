@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://codmvtuno61f6"]
+
+[ext_resource type="Texture2D" uid="uid://b1shs2wm7rlnj" path="res://assets/brackeys_platformer_assets/sprites/pixil-frame-0 (7).png" id="1_6qqgj"]
+[ext_resource type="Script" path="res://scenes/player/axe/axe.gd" id="1_dn6td"]
+[ext_resource type="PackedScene" uid="uid://co7ue8pwplhv8" path="res://scenes/statemachine/state_machine.tscn" id="3_gugun"]
+[ext_resource type="Script" path="res://scenes/player/axe/states/State1.gd" id="4_0kub4"]
+[ext_resource type="Script" path="res://scenes/player/axe/State2.gd" id="5_ibl03"]
+[ext_resource type="Script" path="res://scenes/player/axe/State3.gd" id="6_ue4hf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iifap"]
+radius = 4.0
+height = 18.0
+
+[node name="Axe" type="CharacterBody2D"]
+position = Vector2(2, -1)
+collision_layer = 0
+collision_mask = 9
+script = ExtResource("1_dn6td")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_iifap")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-2, 2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_iifap")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1.31569)
+rotation = 0.785398
+texture = ExtResource("1_6qqgj")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("character", "sprite") instance=ExtResource("3_gugun")]
+character = NodePath("..")
+sprite = NodePath("../Sprite2D")
+priority = 0
+
+[node name="State1" type="Node" parent="StateMachine"]
+script = ExtResource("4_0kub4")
+priority = 5
+
+[node name="State2" type="Node" parent="StateMachine"]
+script = ExtResource("5_ibl03")
+
+[node name="State3" type="Node" parent="StateMachine"]
+script = ExtResource("6_ue4hf")
+priority = -5

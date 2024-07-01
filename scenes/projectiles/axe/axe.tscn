@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://codmvtuno61f6"]
+
+[ext_resource type="Script" path="res://scenes/projectiles/axe/axe.gd" id="1_b3mcl"]
+[ext_resource type="Texture2D" uid="uid://b1shs2wm7rlnj" path="res://assets/brackeys_platformer_assets/sprites/pixil-frame-0 (7).png" id="2_velk0"]
+[ext_resource type="PackedScene" uid="uid://co7ue8pwplhv8" path="res://scenes/statemachine/state_machine.tscn" id="3_l6awi"]
+[ext_resource type="Script" path="res://scenes/projectiles/axe/states/throwing.gd" id="4_vnf5d"]
+[ext_resource type="Script" path="res://scenes/projectiles/axe/states/lodged.gd" id="5_11vfj"]
+[ext_resource type="Script" path="res://scenes/projectiles/axe/states/return.gd" id="6_fusuk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q1vy5"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iifap"]
+radius = 4.0
+height = 18.0
+
+[node name="Axe" type="CharacterBody2D"]
+position = Vector2(2, -1)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_b3mcl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1.31569)
+rotation = 0.785398
+texture = ExtResource("2_velk0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 2)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_q1vy5")
+
+[node name="BounceArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BounceArea"]
+position = Vector2(-2, 2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_iifap")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("character", "sprite") instance=ExtResource("3_l6awi")]
+dynamic_state_updates = false
+character = NodePath("..")
+sprite = NodePath("../Sprite2D")
+
+[node name="Throwing" type="Node" parent="StateMachine"]
+script = ExtResource("4_vnf5d")
+
+[node name="Lodged" type="Node" parent="StateMachine" node_paths=PackedStringArray("bounce_area")]
+script = ExtResource("5_11vfj")
+bounce_area = NodePath("../../BounceArea")
+
+[node name="Return" type="Node" parent="StateMachine" node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("6_fusuk")
+collision_shape = NodePath("../../CollisionShape2D")
+
+[connection signal="body_entered" from="BounceArea" to="StateMachine/Lodged" method="_on_bounce_area_body_entered"]
+[connection signal="body_exited" from="BounceArea" to="StateMachine/Lodged" method="_on_bounce_area_body_exited"]

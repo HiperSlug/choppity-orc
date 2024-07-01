@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp3eibq5evxl"]
+
+[ext_resource type="PackedScene" uid="uid://lf6k2kyibdyb" path="res://scenes/levels/level.tscn" id="1_2r7y0"]
+[ext_resource type="PackedScene" uid="uid://cg6pnevlew2j6" path="res://scenes/levels/level_5.tscn" id="2_dlt23"]
+[ext_resource type="PackedScene" uid="uid://dppshwhhwtf5v" path="res://scenes/objects/spikes.tscn" id="3_t4wll"]
+
+[node name="Level4" instance=ExtResource("1_2r7y0")]
+
+[node name="LoadingZone" parent="." index="1"]
+position = Vector2(136, -216)
+next_level = ExtResource("2_dlt23")
+
+[node name="TileMap" parent="." index="2"]
+layer_0/tile_data = PackedInt32Array(65534, 131072, 0, 65535, 131072, 0, 0, 131072, 0, 1, 131072, 0, -196606, 131072, 0, -327683, 131072, 0, -65534, 131072, 0, -851966, 131072, 0, -851965, 131072, 0, -851964, 131072, 0, -851963, 131072, 0, -851962, 131072, 0, -851961, 131072, 0, -851960, 131072, 0, -851959, 131072, 0, -1114111, 131072, 0, -1114112, 131072, 0, -1048577, 131072, 0, -1048578, 131072, 0, -1048579, 131072, 0, -393219, 131072, 0, -589822, 131072, 0, -720894, 131072, 0, -458750, 131072, 0, -327678, 131072, 0, -720899, 131072, 0, -786435, 131072, 0, -131075, 131072, 0, -65539, 131072, 0, -3, 131072, 0, -458755, 131072, 0, -851971, 131072, 0)
+
+[node name="Spike" parent="Projectile" index="0" instance=ExtResource("3_t4wll")]
+position = Vector2(-40, -248)
+rotation = 3.14159
+
+[node name="Spike2" parent="Projectile" index="1" instance=ExtResource("3_t4wll")]
+position = Vector2(-24, -248)
+rotation = 3.14159
+
+[node name="Spike3" parent="Projectile" index="2" instance=ExtResource("3_t4wll")]
+position = Vector2(-8, -248)
+rotation = 3.14159
+
+[node name="Spike4" parent="Projectile" index="3" instance=ExtResource("3_t4wll")]
+position = Vector2(8, -248)
+rotation = 3.14159
+
+[node name="Spike5" parent="Projectile" index="4" instance=ExtResource("3_t4wll")]
+position = Vector2(24, -248)
+rotation = 3.14159

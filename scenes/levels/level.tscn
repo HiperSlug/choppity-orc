@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://lf6k2kyibdyb"]
+
+[ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_re51j"]
+[ext_resource type="PackedScene" uid="uid://di514mxwtpq8x" path="res://scenes/objects/loading_zone.tscn" id="2_i0mi3"]
+[ext_resource type="TileSet" uid="uid://cbg4haqy2esb2" path="res://resources/tile_map.tres" id="3_6jqdu"]
+[ext_resource type="PackedScene" uid="uid://u4eh8jmkw4lg" path="res://scenes/player/player.tscn" id="4_w87f5"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0i38v"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_re51j")
+
+[node name="Void" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Void"]
+position = Vector2(0, 161)
+shape = SubResource("WorldBoundaryShape2D_0i38v")
+
+[node name="LoadingZone" parent="." instance=ExtResource("2_i0mi3")]
+position = Vector2(73, -1)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("3_6jqdu")
+format = 2
+
+[node name="Player" parent="." instance=ExtResource("4_w87f5")]
+position = Vector2(0, -11)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(4, 4)
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="Projectile" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
