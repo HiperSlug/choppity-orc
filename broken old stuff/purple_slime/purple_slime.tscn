@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://ceg67hyjbv0ii" path="res://assets/brackeys_platformer_assets/sprites/slime_purple.png" id="1_2vykl"]
 [ext_resource type="Script" path="res://scenes/npcs/Area2D.gd" id="1_adehs"]
-[ext_resource type="PackedScene" uid="uid://co7ue8pwplhv8" path="res://scenes/statemachine/state_machine.tscn" id="2_8iwfr"]
+[ext_resource type="PackedScene" path="res://scenes/statemachine/state_machine.tscn" id="2_8iwfr"]
 [ext_resource type="Script" path="res://scenes/npcs/Alerted.gd" id="3_ar3p3"]
-[ext_resource type="Script" path="res://scenes/npcs/enemies/purple_slime/states/idle_state.gd" id="4_dgwse"]
-[ext_resource type="Script" path="res://scenes/npcs/enemies/purple_slime/states/alerted_state.gd" id="4_hyxvc"]
+[ext_resource type="Script" path="res://broken old stuff/purple_slime/states/idle_state.gd" id="4_dgwse"]
+[ext_resource type="Script" path="res://broken old stuff/purple_slime/states/alerted_state.gd" id="4_hyxvc"]
 [ext_resource type="Script" path="res://scenes/npcs/PressingE.gd" id="6_xhjhj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vh4q5"]

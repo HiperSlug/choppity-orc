@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://crnpmbaqc6u1w"]
+
+[ext_resource type="Script" path="res://scenes/projectiles/chain_knife/chain_knife.gd" id="1_strff"]
+[ext_resource type="PackedScene" uid="uid://co7ue8pwplhv8" path="res://scenes/statemachine/state_machine.tscn" id="2_01114"]
+[ext_resource type="Texture2D" uid="uid://b3puypsqplse6" path="res://assets/self made/knife.png" id="2_2556d"]
+[ext_resource type="Script" path="res://scenes/projectiles/chain_knife/states/follow.gd" id="4_5ca4s"]
+[ext_resource type="Script" path="res://scenes/projectiles/chain_knife/states/throw.gd" id="4_du8hx"]
+[ext_resource type="Script" path="res://scenes/projectiles/chain_knife/lodge.gd" id="5_warkn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_na0sw"]
+radius = 3.0
+height = 10.0
+
+[node name="ChainKnife" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_strff")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 0)
+rotation = 1.57079
+texture = ExtResource("2_2556d")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, 0)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_na0sw")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("character", "sprite") instance=ExtResource("2_01114")]
+dynamic_state_updates = false
+character = NodePath("..")
+sprite = NodePath("../Sprite2D")
+
+[node name="Throw" type="Node" parent="StateMachine"]
+script = ExtResource("4_du8hx")
+
+[node name="Lodge" type="Node" parent="StateMachine"]
+script = ExtResource("5_warkn")
+
+[node name="Follow" type="Node" parent="StateMachine"]
+script = ExtResource("4_5ca4s")
+
+[node name="Chain" type="Node" parent="."]

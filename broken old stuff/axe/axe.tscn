@@ -1,11 +1,20 @@
 [gd_scene load_steps=9 format=3 uid="uid://codmvtuno61f6"]
 
+<<<<<<< Updated upstream:scenes/projectiles/axe/axe.tscn
 [ext_resource type="Script" path="res://scenes/projectiles/axe/axe.gd" id="1_b3mcl"]
 [ext_resource type="Texture2D" uid="uid://b1shs2wm7rlnj" path="res://assets/brackeys_platformer_assets/sprites/pixil-frame-0 (7).png" id="2_velk0"]
 [ext_resource type="PackedScene" uid="uid://co7ue8pwplhv8" path="res://scenes/statemachine/state_machine.tscn" id="3_l6awi"]
 [ext_resource type="Script" path="res://scenes/projectiles/axe/states/throwing.gd" id="4_vnf5d"]
 [ext_resource type="Script" path="res://scenes/projectiles/axe/states/lodged.gd" id="5_11vfj"]
 [ext_resource type="Script" path="res://scenes/projectiles/axe/states/return.gd" id="6_fusuk"]
+=======
+[ext_resource type="Script" path="res://broken old stuff/axe/axe.gd" id="1_b3mcl"]
+[ext_resource type="Texture2D" uid="uid://b1shs2wm7rlnj" path="res://assets/self made/pixil-frame-0 (7).png" id="2_velk0"]
+[ext_resource type="PackedScene" path="res://scenes/statemachine/state_machine.tscn" id="3_l6awi"]
+[ext_resource type="Script" path="res://broken old stuff/axe/states/throwing.gd" id="4_vnf5d"]
+[ext_resource type="Script" path="res://broken old stuff/axe/states/lodged.gd" id="5_11vfj"]
+[ext_resource type="Script" path="res://broken old stuff/axe/states/return.gd" id="6_fusuk"]
+>>>>>>> Stashed changes:broken old stuff/axe/axe.tscn
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q1vy5"]
 radius = 4.0

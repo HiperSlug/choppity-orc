@@ -6,6 +6,7 @@ class_name Player
 func death(_area : Area2D) -> void:
 	get_tree().call_deferred("reload_current_scene")
 
+<<<<<<< Updated upstream
 var can_axe : bool = true
 var axe_scene : PackedScene = preload("res://scenes/projectiles/axe/axe.tscn")
 var active_axe : Axe
@@ -58,3 +59,9 @@ func _process(_delta: float) -> void:
 	velocity.x = dir * SPEED
 	direction = dir
 	move_and_slide()
+=======
+@onready var is_on_floor_timer: Timer = $Timers/IsOnFloorTimer
+func _physics_process(delta: float) -> void:
+	if is_on_floor():
+		is_on_floor_timer.start()
+>>>>>>> Stashed changes

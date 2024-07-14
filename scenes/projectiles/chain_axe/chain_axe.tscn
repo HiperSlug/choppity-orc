@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://clxqn8nvppyoa"]
+
+[ext_resource type="Script" path="res://scenes/projectiles/chain_axe/chain_axe.gd" id="1_yttnq"]
+[ext_resource type="Texture2D" uid="uid://dcyghoh8udufn" path="res://assets/brackeys_platformer_assets/sprites/fruit.png" id="2_pawvj"]
+[ext_resource type="PackedScene" uid="uid://c0p8u50shop77" path="res://scenes/statemachine/root_state_machine.tscn" id="3_th4jm"]
+[ext_resource type="Script" path="res://scenes/projectiles/chain_axe/states/active.gd" id="4_liv4j"]
+[ext_resource type="Script" path="res://scenes/projectiles/chain_axe/states/active/throw.gd" id="5_eolhm"]
+[ext_resource type="Script" path="res://scenes/projectiles/chain_axe/states/active/return.gd" id="6_b2hat"]
+[ext_resource type="Script" path="res://scenes/projectiles/chain_axe/states/lodged.gd" id="8_7yasy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bsb1x"]
+radius = 5.0
+
+[node name="ChainAxe" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_yttnq")
+
+[node name="Line" type="Node" parent="."]
+
+[node name="Line2D" type="Line2D" parent="Line"]
+z_index = -1
+width = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, 0)
+rotation = -1.57079
+texture = ExtResource("2_pawvj")
+region_enabled = true
+region_rect = Rect2(34, 17, 11, 15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bsb1x")
+
+[node name="RootStateMachine" parent="." node_paths=PackedStringArray("inital_state", "character", "sprite") instance=ExtResource("3_th4jm")]
+inital_state = NodePath("Moving")
+character = NodePath("..")
+sprite = NodePath("../Sprite2D")
+
+[node name="Moving" type="Node" parent="RootStateMachine" node_paths=PackedStringArray("inital_state")]
+script = ExtResource("4_liv4j")
+inital_state = NodePath("Throw")
+
+[node name="Throw" type="Node" parent="RootStateMachine/Moving"]
+script = ExtResource("5_eolhm")
+
+[node name="Return" type="Node" parent="RootStateMachine/Moving"]
+script = ExtResource("6_b2hat")
+
+[node name="Lodged" type="Node" parent="RootStateMachine"]
+script = ExtResource("8_7yasy")
+
+[connection signal="hit" from="RootStateMachine/Moving/Throw" to="RootStateMachine/Moving" method="_on_throw_hit"]

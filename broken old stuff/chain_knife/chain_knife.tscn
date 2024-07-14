@@ -1,0 +1,87 @@
+[gd_scene load_steps=14 format=3 uid="uid://crnpmbaqc6u1w"]
+
+[ext_resource type="Script" path="res://broken old stuff/chain_knife/chain_knife.gd" id="1_strff"]
+[ext_resource type="PackedScene" path="res://scenes/statemachine/state_machine.tscn" id="2_01114"]
+[ext_resource type="Texture2D" uid="uid://b3puypsqplse6" path="res://assets/self made/knife.png" id="2_2556d"]
+[ext_resource type="Script" path="res://broken old stuff/chain_knife/states/follow.gd" id="4_5ca4s"]
+[ext_resource type="Script" path="res://broken old stuff/chain_knife/states/throw.gd" id="4_du8hx"]
+[ext_resource type="Script" path="res://broken old stuff/chain_knife/states/lodge.gd" id="5_warkn"]
+[ext_resource type="Script" path="res://broken old stuff/chain_knife/states/idle.gd" id="6_g50lu"]
+[ext_resource type="Script" path="res://broken old stuff/chain_knife/states/yank.gd" id="6_hobyl"]
+[ext_resource type="Script" path="res://broken old stuff/chain_knife/states/swing.gd" id="6_osrl7"]
+[ext_resource type="PackedScene" uid="uid://cr2h1ki5sc4ud" path="res://scenes/components/spawner.tscn" id="10_c6l8a"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/chain_knife/chain_knife_spring_joint.tscn" id="11_jib5v"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_na0sw"]
+radius = 3.0
+height = 10.0
+
+[sub_resource type="Curve" id="Curve_kj1ok"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="ChainKnife" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_strff")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 0)
+rotation = 1.57079
+texture = ExtResource("2_2556d")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, 0)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_na0sw")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("character", "sprite") instance=ExtResource("2_01114")]
+dynamic_state_updates = false
+character = NodePath("..")
+sprite = NodePath("../Sprite2D")
+
+[node name="Throw" type="Node" parent="StateMachine" node_paths=PackedStringArray("trail", "trail_timer")]
+script = ExtResource("4_du8hx")
+trail = NodePath("../../Trail/Trail")
+trail_timer = NodePath("../../Trail/Timer")
+
+[node name="Lodge" type="Node" parent="StateMachine" node_paths=PackedStringArray("chain")]
+script = ExtResource("5_warkn")
+chain = NodePath("../../Chain/Chain")
+dynamic_state_updates = false
+
+[node name="Swing" type="Node" parent="StateMachine/Lodge" node_paths=PackedStringArray("spring_projectile")]
+script = ExtResource("6_osrl7")
+spring_projectile = NodePath("../../../ProjectileSpawner")
+
+[node name="Idle" type="Node" parent="StateMachine/Lodge"]
+script = ExtResource("6_g50lu")
+
+[node name="Return" type="Node" parent="StateMachine"]
+script = ExtResource("6_hobyl")
+
+[node name="Follow" type="Node" parent="StateMachine"]
+script = ExtResource("4_5ca4s")
+
+[node name="Chain" type="Node" parent="."]
+
+[node name="Chain" type="Line2D" parent="Chain"]
+width = 2.0
+default_color = Color(0, 0, 1, 0.490196)
+
+[node name="Trail" type="Node" parent="."]
+
+[node name="Trail" type="Line2D" parent="Trail"]
+width = 3.0
+width_curve = SubResource("Curve_kj1ok")
+default_color = Color(1, 0, 0, 0.423529)
+
+[node name="Timer" type="Timer" parent="Trail"]
+wait_time = 0.05
+
+[node name="ProjectileSpawner" parent="." instance=ExtResource("10_c6l8a")]
+projectile_scene = ExtResource("11_jib5v")
+
+[connection signal="timeout" from="Trail/Timer" to="StateMachine/Throw" method="_on_timer_timeout"]

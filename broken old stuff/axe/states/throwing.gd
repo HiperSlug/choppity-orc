@@ -13,3 +13,4 @@ func _do(delta : float) -> void:
 	
 	character.move_and_slide()
 	sprite.rotation += 3 * delta * PI * 2
+	
